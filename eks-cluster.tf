@@ -31,6 +31,8 @@ module "eks" {
 
   cluster_endpoint_public_access = true
 
+  manage_aws_auth_configmap = false
+
   eks_managed_node_groups = {
     dev = {
       min_size     = 1
@@ -38,7 +40,7 @@ module "eks" {
       desired_size = 3
 
       instance_types = ["t3.small"]
-      key_name       = "may_key"
+      key_name       = "Nov_key"
     }
   }
 
