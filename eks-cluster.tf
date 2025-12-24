@@ -21,20 +21,16 @@ output "cluster_id" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.26.0" 
+  version = "20.26.0"
 
-  cluster_name = "app-eks-cluster"
+  cluster_name    = "app-eks-cluster"
   cluster_version = "1.30"
 
+  vpc_id     = module.myapp-vpc.vpc_id
   subnet_ids = module.myapp-vpc.private_subnets
-  vpc_id = module.myapp-vpc.vpc_id
+
   cluster_endpoint_public_access = true
   enable_cluster_creator_admin_permissions = true
-
-  tags = {
-    environment = "development"
-    application = "app"
-  }
 
   eks_managed_node_groups = {
     dev = {
@@ -42,9 +38,15 @@ module "eks" {
       max_size     = 3
       desired_size = 3
 
-      instance_types = ["t2.small"]
-      key_name       = "Nov_key"
+      instance_types = ["t3.small"]
+      key_name       = "may_key"
     }
   }
-depends_on = [module.myapp-vpc]
+
+  tags = {
+    environment = "development"
+    application = "app"
+  }
+
+  depends_on = [module.myapp-vpc]
 }
