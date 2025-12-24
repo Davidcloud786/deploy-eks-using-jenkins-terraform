@@ -21,10 +21,10 @@ output "cluster_id" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.26.0"
+  version = "~> 19.21"
 
   cluster_name    = "app-eks-cluster"
-  cluster_version = "1.30"
+  cluster_version = "1.29"
 
   vpc_id     = module.myapp-vpc.vpc_id
   subnet_ids = module.myapp-vpc.private_subnets
